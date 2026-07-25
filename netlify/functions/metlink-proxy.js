@@ -15,7 +15,13 @@ exports.handler = async function () {
     const res = await fetch('https://api.opendata.metlink.org.nz/v1/gtfs-rt/vehiclepositions', {
       headers: {
         'x-api-key': key,
-        'accept': 'application/json'
+        'accept': 'application/json',
+        // Added: a realistic browser-style User-Agent. Node's default fetch()
+        // sends little/no User-Agent, which is a common signal basic bot
+        // detection filters look for - this may be what a real browser or
+        // Metlink's own "Try it out" tool sends that we weren't.
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+        'Referer': 'https://opendata.metlink.org.nz/'
       }
     });
 
